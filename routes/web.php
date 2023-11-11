@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -16,7 +17,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('index');
 });
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('login.create');
@@ -30,6 +31,14 @@ Route::get('/dashboard', function(){
     return view('dashboard');
 })->middleware('auth');
 
+
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
+
+
+Route::get('/post', [PostController::class, 'index']);
+Route::post('/create', [PostController::class, 'store']);
+Route::get('/edit/{id}', [PostController::class, 'edit']);
+Route::post('/update/{id}', [PostController::class, 'update']);
+Route::post('/post/destroy/{id}', [PostController::class, 'destroy']);
