@@ -370,7 +370,7 @@
 
           <!-- Content -->
          {{ Form::open([
-            'url' => '/update/'.$post->id,
+            'url' => '/update/'.$post->uuid,
             'method' => 'post',
             'enctype' => 'multipart/form-data',
          ])}}

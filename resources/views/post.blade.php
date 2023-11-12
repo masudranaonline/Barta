@@ -345,7 +345,7 @@
                           aria-labelledby="user-menu-button"
                           tabindex="-1">
                     <a
-                            href="/edit/{{ $item->id }} "
+                            href="/edit/{{ $item->uuid }} "
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             role="menuitem"
                             tabindex="-1"
@@ -354,7 +354,7 @@
                     >
 
                     {{ Form::open([
-                        'url' => '/post/destroy/'.$item->id,
+                        'url' => '/post/destroy/'.$item->uuid,
                         'method' => 'post',
                         'enctype' => 'multipart/form',
                     ])}}

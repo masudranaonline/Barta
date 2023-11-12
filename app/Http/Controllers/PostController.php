@@ -6,6 +6,7 @@ use App\Models\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts =post::all();
+        $posts = DB::table('posts')->where('user_id', Auth::id())->get();
         return view('post', compact('posts'));
     }
 
@@ -33,19 +34,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = new post();
+        DB::table('posts')->insert([
+            'uuid' => Uuid::uuid4(),
+            'post' => $request->barta,
+            'user_id' => Auth::id(),
+        ]);
 
-        $posts->uuid  = Uuid::uuid4();
-        $posts->post  = $request->barta;
-        $posts->user_id = Auth::id();
-        $posts->view_count = $request->view_count;
-
-        try {
-            $posts->save();
-            return back();
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        return back();
     }
 
     /**
@@ -59,35 +54,43 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        $post = post::find($id);
+        $post = DB::table('posts')
+        ->where('user_id', Auth::id())
+        ->where('uuid', $uuid)
+        ->first();
+
+        if(!$post){
+            return "The Post you are searchhing is not available";
+        }
+
+
         return view('post_edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $uuid)
     {
-        $posts = post::find($id);
+        DB::table('posts')
+        ->where('uuid', $uuid)
+        ->where('user_id', Auth::id())
+        ->update([
+            'post' => $request->barta
+        ]);
 
-        $posts->post = $request->barta;
-
-        try {
-            $posts->save();
-            return back();
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+    return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        post::destroy($id);
+        DB::table('posts')->where('uuid', $uuid)->delete();
+        // dd(post::destroy($uuid));
         return back();
     }
 }

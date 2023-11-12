@@ -48,7 +48,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('profile');
+            return redirect()->intended('home');
         }
 
         // // $user = User::where('email', $request->email)->first();
