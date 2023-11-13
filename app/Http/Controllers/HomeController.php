@@ -13,8 +13,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts.')->join('users', 'user_id', '=', 'users.id')->get();
+        $posts = DB::table('posts')
+            ->select('posts.*', 'users.name as author_name', 'users.email as author_email', 'users.username as author_username')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->orderBy('posts.created_at', 'desc')
+            ->get();
         return view('home', compact('posts'));
+    }
+
+    public function timeline(string $username){
+        $user =  DB::table('users')->where('username', $username)->first();
+        $posts = DB::table('posts')
+            ->select('posts.*', 'users.name as author_name', 'users.email as author_email', 'users.username as author_username')
+            ->orderBy('posts.created_at', 'desc')
+            ->where('posts.user_id', '=',$user->id)
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->get();
+        return view('post', compact('posts'));
     }
 
     /**

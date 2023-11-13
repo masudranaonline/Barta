@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 
@@ -38,6 +39,8 @@ class PostController extends Controller
             'uuid' => Uuid::uuid4(),
             'post' => $request->barta,
             'user_id' => Auth::id(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         return back();

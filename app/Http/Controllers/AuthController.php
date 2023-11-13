@@ -48,7 +48,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('home');
+            return redirect()->route('home');
         }
 
         // // $user = User::where('email', $request->email)->first();
@@ -63,6 +63,6 @@ class AuthController extends Controller
     public function logout(){
         // Auth::logout();
         Session::flush();
-        return redirect('/login');
+        return redirect()->route('login.create');
     }
 }

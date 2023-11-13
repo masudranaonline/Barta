@@ -122,10 +122,17 @@
                     aria-expanded="false"
                     aria-haspopup="true">
                     <span class="sr-only">Open user menu</span>
-                    <img
-                      class="h-8 w-8 rounded-full"
-                      src="https://avatars.githubusercontent.com/u/831997"
-                      alt="Ahmed Shamim Hasan Shaon" />
+                    @if(isset(Auth::user()->image) && !is_null(Auth::user()->image))
+                        <img
+                            class="h-10 w-10 rounded-full object-cover"
+                            src="https://avatars.githubusercontent.com/u/831997"
+                            alt="Ahmed Shamim" />
+                    @else
+                        <img
+                        class="h-10 w-10 rounded-full object-cover"
+                        src="/img/avatar_male.jpg"
+                        alt="{{ Auth::user()->name }}" />
+                    @endif
                   </button>
                 </div>
 
@@ -154,8 +161,9 @@
                     id="user-menu-item-1"
                     >Edit Profile</a
                   >
-                  {{ Form::open(['url' => '/logout', 'method' => 'POST']) }}
+                  {{ Form::open(['url' => '/logout', 'method' => 'POST', 'enctype' =>'multipart/form-data']) }}
                   <button
+                  type="submit"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                   tabindex="-1"
                   role="menuitem"
@@ -296,12 +304,21 @@
         <div>
           <div class="flex items-start /space-x-3/">
             <!-- User Avatar -->
-<!--            <div class="flex-shrink-0">-->
-<!--              <img-->
-<!--                class="h-10 w-10 rounded-full object-cover"-->
-<!--                src="https://avatars.githubusercontent.com/u/831997"-->
-<!--                alt="Ahmed Shamim" />-->
-<!--            </div>-->
+            <div class="flex-shrink-0">
+                <a href="/post">
+                    @if(isset(Auth::user()->image) && !is_null(Auth::user()->image))
+                    <img
+                        class="h-10 w-10 rounded-full object-cover"
+                        src="https://avatars.githubusercontent.com/u/831997"
+                        alt="Ahmed Shamim" />
+                @else
+                    <img
+                    class="h-10 w-10 rounded-full object-cover"
+                    src="/img/avatar_male.jpg"
+                    alt="{{ Auth::user()->name }}" />
+                @endif
+                </a>
+            </div>
             <!-- /User Avatar -->
 
             <!-- Content -->
@@ -310,7 +327,7 @@
                 class="block w-full p-2 pt-2 text-gray-900 rounded-lg border-none outline-none focus:ring-0 focus:ring-offset-0"
                 name="barta"
                 rows="2"
-                placeholder="What's going on, Shamim?"></textarea>
+                placeholder="What's going on, {{ Auth::user()->name }}?"></textarea>
             </div>
           </div>
         </div>
@@ -421,27 +438,32 @@
           <header>
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
-                <!-- User Avatar -->
-<!--                <div class="flex-shrink-0">-->
-<!--                  <img-->
-<!--                    class="h-10 w-10 rounded-full object-cover"-->
-<!--                    src="https://avatars.githubusercontent.com/u/61485238"-->
-<!--                    alt="Al Nahian" />-->
-<!--                </div>-->
-                <!-- /User Avatar -->
+                <div class="flex-shrink-0">
+                @if(isset($item->user_image) && !is_null($item->user_image))
+                  <img
+                    class="h-10 w-10 rounded-full object-cover"
+                    src="https://avatars.githubusercontent.com/u/61485238"
+                    alt="{{ $item->author_name }}" />
+                @else
+                    <img
+                    class="h-10 w-10 rounded-full object-cover"
+                    src="/img/avatar_male.jpg"
+                    alt="{{ $item->author_name }}" />
+                @endif
+                </div>
 
                 <!-- User Info -->
                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                   <a
-                    href="profile.html"
+                    href="/{{ $item->author_username }}/posts"
                     class="hover:underline font-semibold line-clamp-1">
-                    {{ $item->users->name }}
+                    {{ $item->author_name }}
                   </a>
 
                   <a
                     href="profile.html"
                     class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ Auth::user()->email }}
+                    {{ $item->author_email }}
                   </a>
                 </div>
                 <!-- /User Info -->

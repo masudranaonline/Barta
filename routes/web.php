@@ -21,19 +21,22 @@ Route::get('/index', function () {
     return view('index');
 });
 
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/{username}/posts', [HomeController::class, 'timeline'])->middleware('auth');
 
-Route::get('/', [AuthController::class, 'loginView'])->name('login.create');
-Route::post('/login', [AuthController::class, 'login'])->name('user.login');
+
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.create');
 Route::get('/register', [AuthController::class, 'registerView'])->name('register.create');
 Route::post('/register', [AuthController::class, 'register'])->name('user.register');
 
+// Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 // Route::get('/dashboard', function(){
 //     return view('dashboard');
 // })->middleware('auth');
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
