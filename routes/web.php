@@ -44,7 +44,7 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware('aut
 Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth');
 
 
-Route::get('/post', [PostController::class, 'index']);
+Route::get('/post', [HomeController::class, 'timeline']);
 Route::post('/create', [PostController::class, 'store']);
 Route::get('/edit/{id}', [PostController::class, 'edit']);
 Route::post('/update/{uuid}', [PostController::class, 'update']);
