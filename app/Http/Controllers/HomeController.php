@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
     public function timeline(string $username){
-        $user =  DB::table('users')->where('username', $username)->first();
+         $user =  DB::table('users')->where('username', $username)->first();
         $posts = DB::table('posts')
             ->select('posts.*', 'users.name as author_name', 'users.email as author_email', 'users.username as author_username')
             ->orderBy('posts.created_at', 'desc')

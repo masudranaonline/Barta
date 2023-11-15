@@ -512,7 +512,7 @@
                         'method' => 'post',
                         'enctype' => 'multipart/form',
                     ])}}
-                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="user-menu-item-1" tabindex="-1" role="menuitem">Delete</button>
+                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" id="user-menu-item-1" tabindex="-1" role="menuitem">Delete</button>
                     {{ Form::close() }}
 
                   </div>
@@ -537,7 +537,7 @@
                 >
                 <br />
                 <br />
-                Keep me in your prayers 😌
+
             </p>
         </div>
 
