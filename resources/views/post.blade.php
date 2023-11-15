@@ -306,13 +306,13 @@
                   <a
                     href="profile.html"
                     class="hover:underline font-semibold line-clamp-1">
-                    {{ Auth::user()->name }}
+                    {{ $item->author_name }}
                   </a>
 
                   <a
                     href="profile.html"
                     class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ Auth::user()->email }}
+                    {{ $item->author_email }}
                   </a>
                 </div>
                 <!-- /User Info -->
