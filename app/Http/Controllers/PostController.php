@@ -19,7 +19,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = DB::table('posts')->where('user_id', Auth::id())->get();
-        return view('post', compact('posts'));
+        return view('selfpost', compact('posts'));
     }
 
     /**

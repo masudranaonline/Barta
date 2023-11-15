@@ -293,12 +293,21 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
                 <!-- User Avatar -->
-<!--                <div class="flex-shrink-0">-->
-<!--                  <img-->
-<!--                    class="h-10 w-10 rounded-full object-cover"-->
-<!--                    src="https://avatars.githubusercontent.com/u/61485238"-->
-<!--                    alt="Al Nahian" />-->
-<!--                </div>-->
+             <div class="flex-shrink-0">
+                <a href="/post">
+                    @if(isset(Auth::user()->image) && !is_null(Auth::user()->image))
+                    <img
+                        class="h-10 w-10 rounded-full object-cover"
+                        src="https://avatars.githubusercontent.com/u/831997"
+                        alt="Ahmed Shamim" />
+                @else
+                    <img
+                    class="h-10 w-10 rounded-full object-cover"
+                    src="/img/avatar_male.jpg"
+                    alt="{{ Auth::user()->name }}" />
+                @endif
+                </a>
+             </div>
                 <!-- /User Avatar -->
 
                 <!-- User Info -->
@@ -361,7 +370,7 @@
                         'method' => 'post',
                         'enctype' => 'multipart/form',
                     ])}}
-                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="user-menu-item-1" tabindex="-1" role="menuitem">Delete</button>
+                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" id="user-menu-item-1" tabindex="-1" role="menuitem">Delete</button>
                     {{ Form::close() }}
 
                   </div>
