@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
@@ -37,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit/{id}', [PostController::class, 'edit']);
     Route::post('/update/{uuid}', [PostController::class, 'update']);
     Route::post('/post/destroy/{uuid}', [PostController::class, 'destroy']);
+
+    //comments
+
+    Route::get('/comments/{uuid}', [CommentsController::class, 'index']);
 
 
 });
