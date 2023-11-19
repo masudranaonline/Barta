@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\comment;
+use Illuminate\Support\Facades\Auth;
+use App\Models\post;
 
 class CommentsController extends Controller
 {
@@ -31,9 +34,20 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $postId)
     {
-        //
+        comment::create([
+            'comment' => $request->comment,
+            'user_id' => Auth::id(),
+            'post_id' => $postId,
+        ]);
+
+        $post = post::find($postId);
+        $post->comments_count += 1;
+        $post->save();
+
+
+        return back();
     }
 
     /**

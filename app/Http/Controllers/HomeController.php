@@ -20,18 +20,6 @@ class HomeController extends Controller
             ->get();
         return view('home', compact('posts'));
     }
-
-    public function timeline(string $username){
-         $user =  DB::table('users')->where('username', $username)->first();
-        $posts = DB::table('posts')
-            ->select('posts.*', 'users.name as author_name', 'users.email as author_email', 'users.username as author_username')
-            ->orderBy('posts.created_at', 'desc')
-            ->where('posts.user_id', '=',$user->id)
-            ->join('users', 'posts.user_id', '=', 'users.id')
-            ->get();
-        return view('post', compact('posts'));
-    }
-
     /**
      * Show the form for creating a new resource.
      */

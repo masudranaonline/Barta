@@ -17,6 +17,9 @@ return new class extends Migration
             $table->text('post');
             $table->unsignedBigInteger('user_id');
             $table->string('view_count')->nullable();
+            $table->string('comments_count')->nullable();
+            $table->string('likes_count')->nullable();
+            $table->string('share_count')->nullable();
             $table->timestamps();
         });
     }
