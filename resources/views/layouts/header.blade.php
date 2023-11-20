@@ -153,14 +153,7 @@
                     id="user-menu-item-0"
                     >Your Profile</a
                   >
-                  <a
-                    href="/profile/edit"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                    tabindex="-1"
-                    id="user-menu-item-1"
-                    >Edit Profile</a
-                  >
+
                   {{ Form::open(['url' => '/logout', 'method' => 'POST', 'enctype' =>'multipart/form-data']) }}
                   <button
                   type="submit"
@@ -284,4 +277,4 @@
 <!--          </div>-->
 <!--        </div>-->
       </nav>
-    </header>
+</header>

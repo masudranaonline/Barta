@@ -18,8 +18,10 @@ class UserController extends Controller
             ->where('posts.user_id', '=',$user->id)
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->get();
-        return view('posts', compact('posts'));
+        return view('profile', compact('posts', 'user'));
     }
+
+    //comments
 
     public function post(string $username, string $postId){
         // $user =  DB::table('users')->where('username', $username)->first();
