@@ -180,7 +180,7 @@
                   <a
                     href="profile.html"
                     class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ $post->author_email }}
+                    {{ $post->author_username }}
                   </a>
                 </div>
                 <!-- /User Info -->

@@ -179,21 +179,20 @@
                             aria-labelledby="user-menu-button"
                             tabindex="-1">
                             <a
-                                href="#"
+                                href="/edit/{{ $post->uuid }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem"
                                 tabindex="-1"
                                 id="user-menu-item-0"
                                 >Edit</a
                             >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                role="menuitem"
-                                tabindex="-1"
-                                id="user-menu-item-1"
-                                >Delete</a
-                            >
+                            {{ Form::open([
+                                'url' => '/post/destroy/'.$post->uuid,
+                                'method' => 'post',
+                                'enctype' => 'multipart/form',
+                            ])}}
+                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" id="user-menu-item-1" tabindex="-1" role="menuitem">Delete</button>
+                            {{ Form::close() }}
                             </div>
                         </div>
                         </div>
