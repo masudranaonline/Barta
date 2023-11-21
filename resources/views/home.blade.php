@@ -277,7 +277,7 @@
                 <div class="flex gap-8 text-gray-600">
                   <!-- Comment Button -->
                   <a
-                    href="/comments/{{$post->uuid}}"
+                    href="/{{ $post->author_username }}/posts/{{ $post->uuid }}"
                     type="button"
                     class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
                     <span class="sr-only">Comment</span>
