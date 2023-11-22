@@ -28,14 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/{username}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
-    Route::get('/rana', [ProfileController::class, 'index']);
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('/{username}/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
     Route::get('/', [HomeController::class, 'index']);
 
-    Route::get('/{username}/posts', [UserController::class, 'posts']);
+    Route::get('/{username}/profile', [UserController::class, 'posts']);
     Route::get('/{username}/posts/{postId}', [UserController::class, 'post'])->name('user.post');
     Route::get('/{username}/about', [UserController::class, 'about']);
     Route::get('/{username}/photos', [UserController::class, 'photos']);

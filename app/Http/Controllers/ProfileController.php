@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -21,7 +22,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('profile_edit', [
             'user' => $request->user(),
         ]);
     }
@@ -37,9 +38,23 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        try {
+            $user = User::find(Auth::id());
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->bio = $request->bio;
+            $user->save();
+            // return Redirect::route('profile.edit')->with('status', 'profile-updated');
+            return back()->with('success','User Updated Successfully');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+
+        // $request->user()->save();
+
     }
 
     /**
