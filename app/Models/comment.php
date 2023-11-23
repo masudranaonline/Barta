@@ -14,4 +14,8 @@ class comment extends Model
         'post_id',
         'comment',
     ];
+
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

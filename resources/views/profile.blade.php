@@ -129,27 +129,30 @@
             <header>
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                <!-- User Avatar -->
-                <!--                <div class="flex-shrink-0">-->
-                <!--                  <img-->
-                <!--                    class="h-10 w-10 rounded-full object-cover"-->
-                <!--                    src="https://avatars.githubusercontent.com/u/831997"-->
-                <!--                    alt="Tony Stark" />-->
-                <!--                </div>-->
-                <!-- /User Avatar -->
+                    @if(isset($post->user_image) && !is_null($post->user_image))
+                    <img
+                      class="h-10 w-10 rounded-full object-cover"
+                      src="https://avatars.githubusercontent.com/u/61485238"
+                      alt="{{ $post->author_name }}" />
+                  @else
+                      <img
+                      class="h-10 w-10 rounded-full object-cover"
+                      src="/img/avatar_male.jpg"
+                      alt="{{ $post->author_name }}" />
+                  @endif
 
                 <!-- User Info -->
                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                     <a
-                    href="/{{ $post->author_username }}/posts"
+                    href="/{{ $post->author->username }}/profile"
                     class="hover:underline font-semibold line-clamp-1">
-                    {{ $post->author_name}}
+                    {{ $post->author->name}}
                     </a>
 
                     <a
-                    href="profile.html"
+                    href="/{{ $post->author->username }}/profile"
                     class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ $post->author_username }}
+                    {{ $post->author->username }}
                     </a>
                 </div>
                 <!-- /User Info -->
@@ -223,7 +226,7 @@
 
             <!-- Date Created & View Stat -->
             <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
-            <a href="">{{ date('d M Y • h:i a', strtotime($post->created_at))}}</a>
+            <a href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at))}}</a>
             <span class="">•</span>
             <span>4,450 views</span>
             </div>
@@ -234,7 +237,8 @@
             <div class="flex items-center justify-between">
                 <div class="flex gap-8 text-gray-600">
                 <!-- Comment Button -->
-                <button
+                <a
+                    href="/{{ $post->author->username }}/posts/{{ $post->uuid }}"
                     type="button"
                     class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
                     <span class="sr-only">Comment</span>
@@ -252,7 +256,7 @@
                     </svg>
 
                     <p>{{ $post->comments_count }}</p>
-                </button>
+                </a>
                 <!-- /Comment Button -->
                 </div>
             </div>

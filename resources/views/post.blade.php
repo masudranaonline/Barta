@@ -15,18 +15,31 @@
             <header>
                 <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                        @if(isset($post->user_image) && !is_null($post->user_image))
+                          <img
+                            class="h-10 w-10 rounded-full object-cover"
+                            src="https://avatars.githubusercontent.com/u/61485238"
+                            alt="{{ $post->author->name }}" />
+                        @else
+                            <img
+                            class="h-10 w-10 rounded-full object-cover"
+                            src="/img/avatar_male.jpg"
+                            alt="{{ $post->author->name }}" />
+                        @endif
+                        </div>
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                     <a
-                        href="profile.html"
+                        href="/{{ $post->author->username }}/profile"
                         class="hover:underline font-semibold line-clamp-1">
-                        {{ $post->author_name }}
+                        {{ $post->author->name }}
                     </a>
 
                     <a
-                        href="profile.html"
+                        href="/{{ $post->author->username }}/profile"
                         class="hover:underline text-sm text-gray-500 line-clamp-1">
-                        {{ $post->author_email }}
+                        {{ $post->author->email }}
                     </a>
                     </div>
                     <!-- /User Info -->
@@ -162,24 +175,37 @@
             class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-2 sm:px-6 min-w-full divide-y">
             <!-- Comments -->
 
-            @foreach($comments as $comment)
+            @foreach($post->comments as $comment)
             <div class="py-4">
               <!-- Barta User Comments Top -->
               <header>
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                        @if(isset($post->user_image) && !is_null($post->user_image))
+                          <img
+                            class="h-10 w-10 rounded-full object-cover"
+                            src="https://avatars.githubusercontent.com/u/61485238"
+                            alt="{{ $post->author_name }}" />
+                        @else
+                            <img
+                            class="h-10 w-10 rounded-full object-cover"
+                            src="/img/avatar_male.jpg"
+                            alt="{{ $post->author_name }}" />
+                        @endif
+                        </div>
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                       <a
-                        href="profile.html"
+                        href="/{{ $comment->author->username }}/profile"
                         class="hover:underline font-semibold line-clamp-1">
-                        {{ $comment->author_name }}
+                        {{ $comment->author->name }}
                       </a>
 
                       <a
-                        href="profile.html"
+                        href="/{{ $comment->author->username }}/profile"
                         class="hover:underline text-sm text-gray-500 line-clamp-1">
-                        @ {{ $comment->author_username }}
+                        @ {{ $comment->author->username }}
                       </a>
                     </div>
                     <!-- /User Info -->

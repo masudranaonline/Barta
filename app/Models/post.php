@@ -15,4 +15,12 @@ class post extends Model
         'user_id',
         'view_count',
     ];
+
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function comments() {
+        return $this->hasMany(comment::class);
+    }
 }

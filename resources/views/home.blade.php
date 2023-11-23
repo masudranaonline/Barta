@@ -172,15 +172,15 @@
                 <!-- User Info -->
                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                   <a
-                    href="/{{ $post->author_username }}/profile"
+                    href="/{{ $post->author->username }}/profile"
                     class="hover:underline font-semibold line-clamp-1">
-                    {{ $post->author_name }}
+                    {{ $post->author->name }}
                   </a>
 
                   <a
-                    href="profile.html"
+                    href="/{{ $post->author->username }}/profile"
                     class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ $post->author_username }}
+                    {{ $post->author->username }}
                   </a>
                 </div>
                 <!-- /User Info -->
@@ -264,7 +264,7 @@
 
         <!-- Date Created & View Stat -->
         <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
-            <a href="/{{ $post->author_username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
+            <a href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
             <span class="">•</span>
             <span>450 views</span>
         </div>
@@ -277,7 +277,7 @@
                 <div class="flex gap-8 text-gray-600">
                   <!-- Comment Button -->
                   <a
-                    href="/{{ $post->author_username }}/posts/{{ $post->uuid }}"
+                    href="/{{ $post->author->username }}/posts/{{ $post->uuid }}"
                     type="button"
                     class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
                     <span class="sr-only">Comment</span>
