@@ -14,11 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $posts = DB::table('posts')
-        //     ->select('posts.*', 'users.name as author_name', 'users.email as author_email', 'users.username as author_username')
-        //     ->join('users', 'posts.user_id', '=', 'users.id')
-        //     ->orderBy('posts.created_at', 'desc')
-        //     ->get();
+
 
         $posts = post::with(['author'])->orderBy('created_at', 'desc')->get();
         return view('home', compact('posts'));

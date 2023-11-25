@@ -227,7 +227,7 @@
                             >
 
                             {{ Form::open([
-                                'url' => '/post/destroy/'.$post->uuid,
+                                'url' => '/post/destroy/'.$post->id,
                                 'method' => 'post',
                                 'enctype' => 'multipart/form',
                             ])}}

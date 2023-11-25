@@ -34,15 +34,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('posts')->insert([
+
+        // DB::table('posts')->insert([
+        //     'uuid' => Uuid::uuid4(),
+        //     'post' => $request->barta,
+        //     'user_id' => Auth::id(),
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+
+        // $post = new post();
+
+        // $post->uuid = Uuid::uuid4();
+        // $post->post = $request->barta;
+        // $post->user_id = Auth::id();
+
+        // try {
+        //     $post->save();
+        //     return back();
+        // } catch (\Throwable $th) {
+        //     throw $th;
+        // }
+
+        post::create([
             'uuid' => Uuid::uuid4(),
             'post' => $request->barta,
             'user_id' => Auth::id(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
         ]);
-
         return back();
+
     }
 
     /**
@@ -58,10 +78,12 @@ class PostController extends Controller
      */
     public function edit(string $uuid)
     {
-        $post = DB::table('posts')
-        ->where('user_id', Auth::id())
-        ->where('uuid', $uuid)
-        ->first();
+        // $post = DB::table('posts')
+        // ->where('user_id', Auth::id())
+        // ->where('uuid', $uuid)
+        // ->first();
+
+         $post = post::where('uuid', $uuid)->with('author')->first();
 
         if(!$post){
             return "The Post you are searchhing is not available";
@@ -76,12 +98,20 @@ class PostController extends Controller
      */
     public function update(Request $request, string $uuid)
     {
-        DB::table('posts')
-        ->where('uuid', $uuid)
-        ->where('user_id', Auth::id())
-        ->update([
-            'post' => $request->barta
+        // DB::table('posts')
+        // ->where('uuid', $uuid)
+        // ->where('user_id', Auth::id())
+        // ->update([
+        //     'post' => $request->barta
+        // ]);
+
+        $post =  post::where('uuid', $uuid)->update([
+            'post' => $request->barta,
         ]);
+
+
+        // $post->save();
+
 
     return back();
     }
@@ -89,10 +119,12 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $uuid)
+    public function destroy(string $id)
     {
-        DB::table('posts')->where('uuid', $uuid)->delete();
-        // dd(post::destroy($uuid));
+        // DB::table('posts')->where('uuid', $uuid)->delete();
+        // // dd(post::destroy($uuid));
+
+        post::destroy($id);
         return back();
     }
 }
