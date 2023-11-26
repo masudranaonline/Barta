@@ -34,21 +34,29 @@
                       >Photo</label
                     >
                     <div class="mt-2 flex items-center gap-x-3">
-                      <input
-                        class="hidden"
-                        type="file"
-                        name="avatar"
-                        id="avatar" />
-                      <img
-                        class="h-32 w-32 rounded-full"
-                        src="https://avatars.githubusercontent.com/u/831997"
-                        alt="{{ Auth::user()->name}}" />
-                      <label for="avatar">
-                        <div
-                          class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                          Change
-                        </div>
-                      </label>
+                      {{ Form::open([
+                        'url' => '/profile/'.Auth::user()->username.'/image',
+                        'method' => 'POST',
+                        'enctype' => 'multipart/form-data',
+                      ])}}
+                            <input
+                            class="hidden"
+                            type="file"
+                            name="avatar"
+                            id="avatar" />
+                          <img
+                            class="h-32 w-32 rounded-full"
+                            src="{{ $media->}}"
+                            alt="{{ Auth::user()->name}}" />
+                          <label for="avatar">
+                            <div
+                              class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                              Change
+                            </div>
+                          </label>
+
+                          <button type="submit">Submit</button>
+                      {{ Form::close() }}
                     </div>
                   </div>
             {{ Form::open([

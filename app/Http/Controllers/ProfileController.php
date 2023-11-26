@@ -20,10 +20,14 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(Request $request)
     {
+        return User::with('media');
+        $user = $request->user();
+        return $media = $user->getMedia();
         return view('profile_edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'media' => $media,
         ]);
     }
 

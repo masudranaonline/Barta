@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index']);
 
+
+    Route::post('/profile/{username}/image', [UserController::class, 'store']);
+
     Route::get('/{username}/profile', [UserController::class, 'posts']);
     Route::get('/{username}/posts/{postId}', [UserController::class, 'post'])->name('user.post');
     Route::get('/{username}/about', [UserController::class, 'about']);
@@ -43,6 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/{username}/friends', [UserController::class, 'friends']);
     Route::get('/{username}/followers', [UserController::class, 'followers']);
     Route::get('/{username}/groups', [UserController::class, 'groups']);
+
+    // post relationship
+    Route::post('/post/{username}/new', [PostController::class, 'store']);
 
     Route::get('/post', [PostController::class, 'index']);
     Route::post('/create', [PostController::class, 'store']);
