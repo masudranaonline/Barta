@@ -42,26 +42,32 @@ class PostController extends Controller
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now()
         // ]);
+        // $post = post::create([
+        //     'uuid' => Uuid::uuid4(),
+        //     'post' => $request->barta,
+        //     'user_id' => Auth::id(),
+        // ]);
 
-        // $post = new post();
+        $post = new post();
 
-        // $post->uuid = Uuid::uuid4();
-        // $post->post = $request->barta;
-        // $post->user_id = Auth::id();
+        $post->uuid = Uuid::uuid4();
+        $post->post = $request->barta;
+        $post->user_id = Auth::id();
 
-        // try {
-        //     $post->save();
-        //     return back();
-        // } catch (\Throwable $th) {
-        //     throw $th;
-        // }
 
-        post::create([
-            'uuid' => Uuid::uuid4(),
-            'post' => $request->barta,
-            'user_id' => Auth::id(),
-        ]);
-        return back();
+
+        if ($request->hasFile('image')) {
+             $post->addMediaFromRequest('image')->toMediaCollection('post_images');
+        }
+
+        try {
+            $post->save();
+            return back();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        // return redirect()->route('home');
+        // return back();
 
     }
 

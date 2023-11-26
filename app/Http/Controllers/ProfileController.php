@@ -22,7 +22,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request)
     {
-        return User::with('media');
+        //  User::with('media');
         $user = $request->user();
         return $media = $user->getMedia();
         return view('profile_edit', [
