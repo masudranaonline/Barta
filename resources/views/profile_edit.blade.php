@@ -33,6 +33,7 @@
                       class="block text-sm font-medium leading-6 text-gray-900"
                       >Photo</label
                     >
+
                     <div class="mt-2 flex items-center gap-x-3">
                       {{ Form::open([
                         'url' => '/profile/'.Auth::user()->username.'/image',
@@ -44,10 +45,22 @@
                             type="file"
                             name="avatar"
                             id="avatar" />
-                          <img
-                            class="h-32 w-32 rounded-full"
-                            src="{{ $media->}}"
-                            alt="{{ Auth::user()->name}}" />
+                            <div class="flex-shrink-0">
+                                @foreach($user->media as $media)
+                                <div class="flex items-center justify-center">
+                                    <img class="mt-4 rounded-lg w-full" src="media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                </div>
+                             @endforeach
+                                {{-- <a href="/{{ Auth::user()->username }}/posts">
+                                    @if (isset(Auth::user()->image) && !is_null(Auth::user()->image))
+                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800"
+                                            src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
+                                    @else
+                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                                            alt="{{ Auth::user()->name }}" />
+                                    @endif
+                                </a> --}}
+                            </div>
                           <label for="avatar">
                             <div
                               class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">

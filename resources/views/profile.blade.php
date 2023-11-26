@@ -13,11 +13,19 @@
                 class="flex gap-4 justify-center flex-col text-center items-center">
                 <!-- User Meta -->
                 <div class="relative">
-                    <img
-                      class="w-32 h-32 rounded-full border-2 border-gray-800"
-                      src="https://avatars.githubusercontent.com/u/831997"
-                      alt="Ahmed Shamim" />
-        <!--            <span class="bottom-2 right-4 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>-->
+                    <div class="flex-shrink-0">
+                        <a href="/{{ Auth::user()->username }}/posts">
+                            @if (isset(Auth::user()->image) && !is_null(Auth::user()->image))
+                                <img class="w-32 h-32 rounded-full border-2 border-gray-800"
+                                    src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
+                            @else
+                                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                                    alt="{{ Auth::user()->name }}" />
+                            @endif
+                        </a>
+                    </div>
+
+
                   </div>
                 {{-- @foreach ($posts as $post ) --}}
                     <div>
@@ -50,7 +58,7 @@
                 <!-- Edit Profile Button (Only visible to the profile owner) -->
                 @if ($user->id == Auth::user()->id)
                     <a
-                    href="/{{$user->username}}/edit"
+                    href="/{{$user->username}}/edit/{{$user->id}}"
                     type="button"
                     class="-m-2 flex gap-2 items-center rounded-full px-4 py-2 font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700">
                     <svg

@@ -15,26 +15,30 @@ class ProfileController extends Controller
 
     public function index()
     {
+
+    //    return  User::with(['media'])->find(Auth::id());
         return view('profile');
     }
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request)
+    public function edit(Request $request, string $username)
     {
-        //  User::with('media');
-        $user = $request->user();
-        return $media = $user->getMedia();
-        return view('profile_edit', [
-            'user' => $user,
-            'media' => $media,
-        ]);
+        // return Auth::user()->with('media');
+        return $users = User::with('media')->where('username', $username)->get();
+
+        return view('profile_edit', compact('users'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+
+     public function show(string $id)
+     {
+        return $user = User::with('media')->where('id', $id)->first();
+     }
+    public function update(ProfileUpdateRequest $request, string $id): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
@@ -49,8 +53,16 @@ class ProfileController extends Controller
             $user->email = $request->email;
             $user->password = $request->password;
             $user->bio = $request->bio;
+
             $user->save();
+
+        //    return User::with('media')->where('id', $id);
+
+            // return $user;
+
             // return Redirect::route('profile.edit')->with('status', 'profile-updated');
+
+
             return back()->with('success','User Updated Successfully');
         } catch (\Throwable $th) {
             throw $th;

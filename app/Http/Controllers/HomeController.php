@@ -16,9 +16,9 @@ class HomeController extends Controller
     {
 
 
-        $posts = post::with(['author'])->orderBy('created_at', 'desc')->get();
-        $post_image = $posts->getFirstMedia('post_images')[0]->getUrl();
-        dd($post_image);
+        $posts = post::with(['author', 'media'])->latest()->get();
+        // $post_image = $posts->getFirstMedia('post_images')[0]->getUrl();
+        // dd($post_image);
         return view('home', compact('posts'));
     }
     /**

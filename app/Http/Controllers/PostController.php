@@ -34,43 +34,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-        // DB::table('posts')->insert([
-        //     'uuid' => Uuid::uuid4(),
-        //     'post' => $request->barta,
-        //     'user_id' => Auth::id(),
-        //     'created_at' => Carbon::now(),
-        //     'updated_at' => Carbon::now()
-        // ]);
-        // $post = post::create([
-        //     'uuid' => Uuid::uuid4(),
-        //     'post' => $request->barta,
-        //     'user_id' => Auth::id(),
-        // ]);
-
-        $post = new post();
+         $post = new post();
 
         $post->uuid = Uuid::uuid4();
         $post->post = $request->barta;
         $post->user_id = Auth::id();
 
-
-
-        if ($request->hasFile('image')) {
-             $post->addMediaFromRequest('image')->toMediaCollection('post_images');
-        }
-
         try {
             $post->save();
+
+            foreach($request->images as $image) {
+                $post->addMedia($image)->toMediaCollection('post_images');
+            }
             return back();
         } catch (\Throwable $th) {
             throw $th;
         }
-        // return redirect()->route('home');
-        // return back();
 
     }
-
     /**
      * Display the specified resource.
      */
