@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request, string $username) {
         $user = User::where('username', $username)->first();
-        $user->clearMediaCollection();
+        $user->clearMediaCollection('profile_image');
         $user->addMediaFromRequest('avatar')->toMediaCollection('profile_image');
         return back();
     }

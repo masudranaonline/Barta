@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::get('/', [HomeController::class, 'index']);
 
 
     Route::post('/profile/{username}/image', [UserController::class, 'store']);
@@ -47,6 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/{username}/followers', [UserController::class, 'followers']);
     Route::get('/{username}/groups', [UserController::class, 'groups']);
 
+
+
+    Route::get('/', [HomeController::class, 'index']);
     // post relationship
     Route::post('/post/{username}/new', [PostController::class, 'store']);
 

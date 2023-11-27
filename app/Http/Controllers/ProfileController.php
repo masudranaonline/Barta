@@ -25,9 +25,9 @@ class ProfileController extends Controller
     public function edit(Request $request, string $username)
     {
         // return Auth::user()->with('media');
-        return $users = User::with('media')->where('username', $username)->get();
+         $user = User::with('media')->where('username', $username)->first();
 
-        return view('profile_edit', compact('users'));
+        return view('profile_edit', compact('user'));
     }
 
     /**

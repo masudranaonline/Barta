@@ -45,22 +45,26 @@
                             type="file"
                             name="avatar"
                             id="avatar" />
-                            <div class="flex-shrink-0">
-                                @foreach($user->media as $media)
-                                <div class="flex items-center justify-center">
-                                    <img class="mt-4 rounded-lg w-full" src="media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                            {{-- @if ($user->media == null) --}}
+                                {{-- <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                                alt="{{ Auth::user()->name }}" /> --}}
+                            {{-- @else --}}
+
+                            @if ($user->media == [] )
+                                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
+                                <h1>hello</h1>
+                            @else
+                                <div class="flex-shrink-0">
+                                    @foreach($user->media as $media)
+                                    <div class="flex items-center justify-center">
+                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                    </div>
+                                    @endforeach
                                 </div>
-                             @endforeach
-                                {{-- <a href="/{{ Auth::user()->username }}/posts">
-                                    @if (isset(Auth::user()->image) && !is_null(Auth::user()->image))
-                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800"
-                                            src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
-                                    @else
-                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
-                                            alt="{{ Auth::user()->name }}" />
-                                    @endif
-                                </a> --}}
-                            </div>
+                            @endif
+
+
+                            {{-- @endif --}}
                           <label for="avatar">
                             <div
                               class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -91,7 +95,7 @@
                       name="name"
                       id="name"
                       autocomplete="given-name"
-                      value="{{ Auth::user()->name }}"
+                      value="{{ $user->name }}"
                       class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" />
                   </div>
                 </div>
@@ -108,7 +112,7 @@
                       name="email"
                       type="email"
                       autocomplete="email"
-                      value="{{ Auth::user()->email }}"
+                      value="{{ $user->email }}"
                       class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" />
                   </div>
                 </div>
@@ -145,7 +149,7 @@
                     name="bio"
                     rows="3"
                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6">
-                     {{ Auth::user()->bio }}
+                     {{ $user->bio }}
                     </textarea
                   >
                 </div>
@@ -156,6 +160,7 @@
             </div>
           </div>
         </div>
+
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
           <button
