@@ -49,6 +49,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/', [HomeController::class, 'index']);
+
+    // Route::post('/search/{searchTest}', [HomeController::class, 'search']);
+
+
     // post relationship
     Route::post('/post/{username}/new', [PostController::class, 'store']);
 

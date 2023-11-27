@@ -222,6 +222,9 @@
             <!-- Content -->
             <a href="./single.html">
             <div class="py-4 text-gray-700 font-normal">
+                @foreach ($post->media as $media )
+                    <img class="mt-4 rounded-lg w-full" src="/media/{{ $media->id }}/{{ $media->file_name}}" alt="">
+                @endforeach
                 <p>
 
                 <br />

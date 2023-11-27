@@ -375,14 +375,14 @@
             'enctype' => 'multipart/form-data',
          ])}}
             <div class="py-4 text-gray-700 font-normal">
-            <p>
+                @foreach ($post->media as $media )
+                   <img class="mt-4 rounded-lg w-full" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
 
-                <br />
-                <textarea name="barta" id="barta" cols="55" class="p-4" rows="10">
+                @endforeach
+            <p>
+                <textarea name="barta" id="barta" cols="55" class="p-4 m-2" rows="5">
                     {{ $post->post }}
                 </textarea>
-                <br>
-
                 <a
                 href="#laravel"
                 class="text-black font-semibold hover:underline"

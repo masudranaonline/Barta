@@ -70,7 +70,7 @@ class PostController extends Controller
         // ->where('uuid', $uuid)
         // ->first();
 
-         $post = post::where('uuid', $uuid)->with('author')->first();
+         $post = post::where('uuid', $uuid)->with('author', 'media')->first();
 
         if(!$post){
             return "The Post you are searchhing is not available";

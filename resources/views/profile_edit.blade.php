@@ -45,14 +45,12 @@
                             type="file"
                             name="avatar"
                             id="avatar" />
-                            {{-- @if ($user->media == null) --}}
-                                {{-- <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
-                                alt="{{ Auth::user()->name }}" /> --}}
-                            {{-- @else --}}
 
                             @if ($user->media == [] )
-                                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
-                                <h1>hello</h1>
+                                <div class="flex-shrink-0">
+                                    <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
+                                    <h1>hello</h1>
+                                </div>
                             @else
                                 <div class="flex-shrink-0">
                                     @foreach($user->media as $media)
@@ -72,7 +70,7 @@
                             </div>
                           </label>
 
-                          <button type="submit">Submit</button>
+                          <button type="submit" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Submit</button>
                       {{ Form::close() }}
                     </div>
                   </div>
