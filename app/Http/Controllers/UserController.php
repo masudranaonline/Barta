@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function post(string $username, string $postId)
     {
-         $post = post::with(['author', 'comments.author'])->where('uuid', $postId)->first();
+          $post = post::with(['author.media', 'media', 'comments.author.media'])->where('uuid', $postId)->first();
          return view('post', compact('post'));
     }
 

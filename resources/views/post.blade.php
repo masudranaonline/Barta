@@ -16,18 +16,24 @@
                 <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <div class="flex-shrink-0">
-                        @if(isset($post->user_image) && !is_null($post->user_image))
-                          <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://avatars.githubusercontent.com/u/61485238"
-                            alt="{{ $post->author->name }}" />
-                        @else
-                            <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="/img/avatar_male.jpg"
-                            alt="{{ $post->author->name }}" />
-                        @endif
+
+                        @if (count($post->author->media) == 0 )
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full object-cover border-gray-800" src="/img/avatar_male.jpg" alt="">
                         </div>
+                        @else
+                            <div class="flex-shrink-0">
+                                @foreach($post->author->media as $media)
+                                <div class="flex items-center justify-center">
+                                    <img class="h-10 w-10 rounded-full object-cover" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+
+                        </div>
+
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                     <a
@@ -101,6 +107,11 @@
 
             <!-- Content -->
             <div class="py-4 text-gray-700 font-normal">
+                @foreach($post->media as $media)
+                <div class="flex items-center justify-center">
+                    <img class="mt-4 rounded-lg w-full" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                </div>
+            @endforeach
                 <p>
                     {{ $post->post }}
                 <br />
@@ -182,17 +193,21 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-3">
                     <div class="flex-shrink-0">
-                        @if(isset($post->user_image) && !is_null($post->user_image))
-                          <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://avatars.githubusercontent.com/u/61485238"
-                            alt="{{ $post->author_name }}" />
+
+                        @if (count($comment->author->media) == 0 )
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full object-cover border-gray-800" src="/img/avatar_male.jpg" alt="">
+                        </div>
                         @else
-                            <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="/img/avatar_male.jpg"
-                            alt="{{ $post->author_name }}" />
+                            <div class="flex-shrink-0">
+                                @foreach($comment->author->media as $media)
+                                <div class="flex items-center justify-center">
+                                    <img class="h-10 w-10 rounded-full object-cover" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                </div>
+                                @endforeach
+                            </div>
                         @endif
+
                         </div>
                     <!-- User Info -->
                     <div class="text-gray-900 flex flex-col min-w-0 flex-1">
