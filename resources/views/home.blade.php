@@ -18,8 +18,8 @@
             <div class="flex items-start /space-x-3/">
                 <!-- User Avatar -->
                 <div class="flex-shrink-0">
-                    <a href="/{{ Auth::user()->username }}/posts">
-{{--
+                    <a href="/{{ Auth::user()->username }}/profile">
+                    @foreach ($users as $user)
                         @if (count($user->media) == 0 )
                                 <div class="flex-shrink-0">
                                     <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
@@ -28,18 +28,12 @@
                                 <div class="flex-shrink-0">
                                     @foreach($user->media as $media)
                                     <div class="flex items-center justify-center">
-                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                        <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
                                     </div>
                                     @endforeach
                                 </div>
-                            @endif --}}
-                        {{-- @if (isset(Auth::user()->image) && !is_null(Auth::user()->image))
-                            <img class="h-10 w-10 rounded-full object-cover"
-                                src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
-                        @else
-                            <img class="h-10 w-10 rounded-full object-cover" src="/img/avatar_male.jpg"
-                                alt="{{ Auth::user()->name }}" />
-                        @endif --}}
+                            @endif
+                        @endforeach
                     </a>
                 </div>
                 <!-- /User Avatar -->
