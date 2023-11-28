@@ -46,10 +46,9 @@
                             name="avatar"
                             id="avatar" />
 
-                            @if ($user->media == [] )
+                            @if (count($user->media) == 0 )
                                 <div class="flex-shrink-0">
                                     <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
-                                    <h1>hello</h1>
                                 </div>
                             @else
                                 <div class="flex-shrink-0">

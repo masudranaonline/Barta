@@ -15,12 +15,19 @@
                 <div class="relative">
                     <div class="flex-shrink-0">
                         <a href="/{{ Auth::user()->username }}/posts">
-                            @if (isset(Auth::user()->image) && !is_null(Auth::user()->image))
-                                <img class="w-32 h-32 rounded-full border-2 border-gray-800"
-                                    src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
+
+                            @if (count($user->media) == 0 )
+                                <div class="flex-shrink-0">
+                                    <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
+                                </div>
                             @else
-                                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
-                                    alt="{{ Auth::user()->name }}" />
+                                <div class="flex-shrink-0">
+                                    @foreach($user->media as $media)
+                                    <div class="flex items-center justify-center">
+                                        <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                    </div>
+                                    @endforeach
+                                </div>
                             @endif
                         </a>
                     </div>
@@ -137,17 +144,20 @@
             <header>
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    @if(isset($post->user_image) && !is_null($post->user_image))
-                    <img
-                      class="h-10 w-10 rounded-full object-cover"
-                      src="https://avatars.githubusercontent.com/u/61485238"
-                      alt="{{ $post->author_name }}" />
-                  @else
-                      <img
-                      class="h-10 w-10 rounded-full object-cover"
-                      src="/img/avatar_male.jpg"
-                      alt="{{ $post->author_name }}" />
-                  @endif
+
+                    @if (count($post->author->media) == 0 )
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full object-cover border-gray-800" src="/img/avatar_male.jpg" alt="">
+                    </div>
+                    @else
+                        <div class="flex-shrink-0">
+                            @foreach($post->author->media as $media)
+                            <div class="flex items-center justify-center">
+                                <img class="h-10 w-10 rounded-full object-cover" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                            </div>
+                            @endforeach
+                        </div>
+                    @endif
 
                 <!-- User Info -->
                 <div class="text-gray-900 flex flex-col min-w-0 flex-1">

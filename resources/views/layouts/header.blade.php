@@ -64,19 +64,33 @@
 <!--              </div>-->
             </div>
             <!-- Search input -->
-            <form action="" method="POST" class="flex items-center">
+            {{-- <form action="" method="POST" class="flex items-center"> --}}
                 {{ Form::open([
-                    'url' => '',
-                    'methode' => 'POST',
+                    'id' => 'searchForm',
+                    'url' => '/search',
+                    'methode' => 'get',
                     'enctype' => 'multipart/form-data',
                 ])}}
                 <input
+                        onkeyup="getText()"
+                        id="searchText"
                         type="text"
                         name="searchText"
                         placeholder="Search..."
                         class="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
                 />
               {{  Form::close() }}
+
+              <script>
+                function getText(){
+                    const text = document.getElementById('searchText').value;
+                    let url = '/search/' + text;
+
+                    const form = document.getElementById('searchForm');
+                    form.setAttribute('action', url);
+                }
+              </script>
+
             <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
               <!-- This Button Should Be Hidden on Mobile Devices -->
           <button

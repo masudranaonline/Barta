@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index']);
 
-    // Route::post('/search/{searchTest}', [HomeController::class, 'search']);
+    Route::post('/search/{searchTest?}', [HomeController::class, 'search']);
 
 
     // post relationship

@@ -13,8 +13,10 @@ class UserController extends Controller
 
     public function posts(string $username)
     {
-        $user = User::where('username', $username)->first();
-        $posts = post::with('author', 'media')->where('user_id', $user->id)->get();
+         $user = User::with('media')->where('username', $username)->first();
+        //  return $posts = post::with('author.media', 'media')->where('user_id', $user->id)->get();
+         $posts = post::with('author.media', 'media')->where('user_id', $user->id)->get();
+
 
         return view('profile', compact('posts', 'user'));
 
@@ -38,11 +40,14 @@ class UserController extends Controller
     }
 
     public function store(Request $request, string $username) {
-        $user = User::where('username', $username)->first();
-        $user->clearMediaCollection('profile_image');
-        $user->addMediaFromRequest('avatar')->toMediaCollection('profile_image');
+        if($request->hasFile('avatar')){
+            $user = User::where('username', $username)->first();
+            $user->clearMediaCollection('profile_image');
+            $user->addMediaFromRequest('avatar')->toMediaCollection('profile_image');
+        }
         return back();
     }
+
 
     public function show(Request $request) {
 

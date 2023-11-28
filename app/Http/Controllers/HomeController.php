@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\post;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -14,16 +15,28 @@ class HomeController extends Controller
      */
     public function index()
     {
+       return  $user = User::with(['media'])->find(Auth::user());
 
 
-        $posts = post::with(['author', 'media'])->latest()->get();
-        // $post_image = $posts->getFirstMedia('post_images')[0]->getUrl();
-        // dd($post_image);
-        return view('home', compact('posts'));
+         $posts = post::with(['author.media', 'media'])->latest()->get();
+        return view('home', compact('posts', 'user'));
     }
     /**
      * Show the form for creating a new resource.
      */
+
+    public function search(string $searchText = null) {
+        //post content search
+        $posts = post::Where('post', 'like', '%'.$searchText.'%')
+                    ->with(['author', 'media', 'comments.author'])->get();
+        //user profile search
+        $users = User::Where('name', 'like', '%'.$searchText.'%')
+                    ->orWhere('email', 'like', '%'.$searchText.'%')->get();
+
+        return view('search-result', compact('posts', 'users'));
+    }
+
+
     public function create()
     {
         //
