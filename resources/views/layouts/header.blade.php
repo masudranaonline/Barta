@@ -41,7 +41,8 @@
             <div class="flex">
               <div class="flex flex-shrink-0 items-center">
                 <a href="/">
-                  <h2 class="font-bold text-2xl">Barta</h2>
+                  {{-- <h2 class="font-bold text-2xl">Barta</h2> --}}
+                  <img class="w-20 h-10" src="/img/logo.PNG" alt="Barta">
                 </a>
               </div>
 <!--              <div class="hidden sm:ml-6 sm:flex sm:space-x-8">-->
@@ -67,8 +68,8 @@
             {{-- <form action="" method="POST" class="flex items-center"> --}}
                 {{ Form::open([
                     'id' => 'searchForm',
-                    'url' => '/search',
                     'methode' => 'get',
+                    'url' => '/search',
                     'enctype' => 'multipart/form-data',
                 ])}}
                 <input

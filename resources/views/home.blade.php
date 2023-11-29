@@ -186,6 +186,7 @@
 
                     <!-- Date Created & View Stat -->
                     <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
+
                         <a
                             href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
                         <span class="">•</span>

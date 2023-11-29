@@ -15,7 +15,7 @@ class UserController extends Controller
     {
          $user = User::with('media')->where('username', $username)->first();
         //  return $posts = post::with('author.media', 'media')->where('user_id', $user->id)->get();
-         $posts = post::with('author.media', 'media')->where('user_id', $user->id)->get();
+         $posts = post::with('author.media', 'media')->where('user_id', $user->id)->latest()->get();
 
 
         return view('profile', compact('posts', 'user'));
