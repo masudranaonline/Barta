@@ -31,7 +31,7 @@
     </style>
   </head>
   <body class="bg-gray-100">
-    <header>
+    <header class="sticky top-0">
       <!-- Navigation -->
       <nav
         x-data="{ mobileMenuOpen: false, userMenuOpen: false }"

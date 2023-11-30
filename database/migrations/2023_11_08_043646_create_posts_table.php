@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->text('post');
+            $table->text('post')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('view_count')->nullable();
             $table->string('comments_count')->nullable();

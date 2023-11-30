@@ -14,7 +14,6 @@ class UserController extends Controller
     public function posts(string $username)
     {
          $user = User::with('media')->where('username', $username)->first();
-        //  return $posts = post::with('author.media', 'media')->where('user_id', $user->id)->get();
          $posts = post::with('author.media', 'media')->where('user_id', $user->id)->latest()->get();
 
 

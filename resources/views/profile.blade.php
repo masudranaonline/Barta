@@ -50,14 +50,14 @@
                 class="flex flex-row gap-16 justify-center text-center items-center">
                 <!-- Total Posts Count -->
                 <div class="flex flex-col justify-center items-center">
-                    <h4 class="sm:text-xl font-bold">3</h4>
+                    <h4 class="sm:text-xl font-bold">{{ count($posts)}}</h4>
                     <p class="text-gray-600">Posts</p>
                 </div>
 
                 <!-- Total Comments Count -->
                 <div class="flex flex-col justify-center items-center">
-                    <h4 class="sm:text-xl font-bold">14</h4>
-                    <p class="text-gray-600">Comments</p>
+                    <h4 class="sm:text-xl font-bold">0</h4>
+                    <p class="text-gray-600">Friends</p>
                 </div>
                 </div>
                 <!-- /Profile Stats -->

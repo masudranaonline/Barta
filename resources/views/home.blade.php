@@ -22,7 +22,7 @@
                     @foreach ($users as $user)
                         @if (count($user->media) == 0 )
                                 <div class="flex-shrink-0">
-                                    <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
+                                    <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
                                 </div>
                             @else
                                 <div class="flex-shrink-0">
@@ -66,6 +66,7 @@
                             </svg>
                         </label>
                     </div>
+                    <span class="text-red-500 text-sm underline underline-offset-4">{{ Session::get('error')}}</span>
                 </div>
 
                 <div>

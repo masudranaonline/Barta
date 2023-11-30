@@ -16,9 +16,8 @@ class HomeController extends Controller
     public function index()
     {
          $users = User::with(['media'])->find(Auth::user());
-
-
          $posts = post::with(['author.media', 'media'])->latest()->get();
+
         return view('home', compact('posts', 'users'));
     }
     /**
@@ -26,13 +25,19 @@ class HomeController extends Controller
      */
 
     public function search(string $searchText = null) {
-        //post content search
+
+        if(!is_null($searchText)) {
+            //post content search
         $posts = post::Where('post', 'like', '%'.$searchText.'%')
-                    ->with(['author.media', 'media', 'comments.author'])->get();
+                ->with(['author.media', 'media', 'comments.author'])->get();
         //user profile search
-         $users = User::Where('name', 'like', '%'.$searchText.'%')
-                    ->orWhere('email', 'like', '%'.$searchText.'%')
-                    ->with('media')->get();
+        $users = User::Where('name', 'like', '%'.$searchText.'%')
+                ->orWhere('email', 'like', '%'.$searchText.'%')
+                ->with('media')->get();
+        }else {
+            $posts = [];
+            $users = [];
+        }
 
         return view('search-result', compact('posts', 'users'));
     }
@@ -54,9 +59,10 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        // $users = User::with(['media'])->find(Auth::user());
+        // return view('layouts.header', compact('users'));
     }
 
     /**

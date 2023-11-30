@@ -2,7 +2,7 @@
 @section('content')
 
 <main class="container max-w-xl mx-auto space-y-8 mt-8 px-2 md:px-0 min-h-screen">
-    <h1 class="text-2xl bg-gray-500 text-slate-200 text-center py-1 rounded-sm">Posts(0)</h1>
+    <h1 class="text-2xl bg-gray-500 text-slate-200 text-center py-1 rounded-sm">Posts({{ count($posts) }})</h1>
     <section id="newsfeed" class="space-y-6">
         <!-- Barta Card -->
         @foreach ($posts as $post)
@@ -132,8 +132,9 @@
     </section>
 
     {{-- all users --}}
-    <h1 class="text-2xl bg-gray-500 text-slate-200 text-center py-1 rounded-sm">Users(0)</h1>
+    <h1 class="text-2xl bg-gray-500 text-slate-200 text-center py-1 rounded-sm">Users({{ count($users) }})</h1>
 
+    @if(count($users) != 0)
     <div class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6">
         <div class=" ">
             @foreach ($users as $user)
@@ -182,6 +183,7 @@
         </div>
 
     </div>
+    @endif
 </main>
 
 @endsection
