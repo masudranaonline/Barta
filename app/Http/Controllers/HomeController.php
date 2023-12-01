@@ -15,10 +15,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //   $users = User::with(['media'])->find(Auth::user());
+          $users = User::with(['media'])->find(Auth::user());
          $posts = post::with(['author.media', 'media'])->latest()->get();
 
-        return view('home', compact('posts'));
+        return view('home', compact('posts', 'users'));
     }
     /**
      * Show the form for creating a new resource.
