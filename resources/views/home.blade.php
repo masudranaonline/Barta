@@ -19,22 +19,20 @@
                 <!-- User Avatar -->
                 <div class="flex-shrink-0">
                     <a href="/{{ Auth::user()->username }}/profile">
-                    @foreach ($users as $user)
-                        @if (count($user->media) == 0 )
-                                <div class="flex-shrink-0">
-                                    <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg" alt="">
+                        @if (Auth::user()->getFirstMediaUrl('profile_image') == null)
+                        <div class="flex-shrink-0">
+                            <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                                alt="">
+                        </div>
+                        @else
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center">
+                                    <img class="w-10 h-10 rounded-full border-2 border-gray-800"
+                                        src="{{ Auth::user()->getFirstMediaUrl('profile_image') }}" alt="">
                                 </div>
-                            @else
-                                <div class="flex-shrink-0">
-                                    @foreach($user->media as $media)
-                                    <div class="flex items-center justify-center">
-                                        <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
-                                    </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        @endforeach
-                    </a>
+                            </div>
+                    @endif
+                        </a>
                 </div>
                 <!-- /User Avatar -->
 

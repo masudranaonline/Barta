@@ -95,17 +95,19 @@
                     aria-expanded="false"
                     aria-haspopup="true">
                     <span class="sr-only">Open user menu</span>
-                    @if(isset(Auth::user()->image) && !is_null(Auth::user()->image))
-                        <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://avatars.githubusercontent.com/u/831997"
-                            alt="Ahmed Shamim" />
+                    @if (Auth::user()->getFirstMediaUrl('profile_image') == null)
+                    <div class="flex-shrink-0">
+                        <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                            alt="">
+                    </div>
                     @else
-                        <img
-                        class="h-10 w-10 rounded-full object-cover"
-                        src="/img/avatar_male.jpg"
-                        alt="{{ Auth::user()->name }}" />
-                    @endif
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center">
+                                <img class="w-10 h-10 rounded-full border-2 border-gray-800"
+                                    src="{{ Auth::user()->getFirstMediaUrl('profile_image') }}" alt="">
+                            </div>
+                        </div>
+                @endif
                   </button>
                 </div>
 
