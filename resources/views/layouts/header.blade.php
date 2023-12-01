@@ -45,27 +45,8 @@
                   <img class="w-20 h-10" src="/img/logo.PNG" alt="Barta">
                 </a>
               </div>
-<!--              <div class="hidden sm:ml-6 sm:flex sm:space-x-8">-->
-<!--                &lt;!&ndash; Current: "border-gray-800 text-gray-900 font-semibold", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-800" &ndash;&gt;-->
-<!--                <a-->
-<!--                  href="#"-->
-<!--                  class="inline-flex items-center border-b-2 border-gray-800 px-1 pt-1 text-sm font-semibold text-gray-900"-->
-<!--                  >Discover</a-->
-<!--                >-->
-<!--                <a-->
-<!--                  href="#"-->
-<!--                  class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-600 hover:border-gray-300 hover:text-gray-800"-->
-<!--                  >For you</a-->
-<!--                >-->
-<!--                <a-->
-<!--                  href="#"-->
-<!--                  class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-600 hover:border-gray-300 hover:text-gray-800"-->
-<!--                  >People</a-->
-<!--                >-->
-<!--              </div>-->
             </div>
-            <!-- Search input -->
-            {{-- <form action="" method="POST" class="flex items-center"> --}}
+
                 {{ Form::open([
                     'id' => 'searchForm',
                     'methode' => 'get',
@@ -100,43 +81,6 @@
             Create Post
           </button>
 
-<!--              <button-->
-<!--                type="button"-->
-<!--                class="rounded-full bg-white p-2 text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">-->
-<!--                <span class="sr-only">View notifications</span>-->
-<!--                &lt;!&ndash; Heroicon name: outline/bell &ndash;&gt;-->
-<!--                <svg-->
-<!--                  class="h-6 w-6"-->
-<!--                  xmlns="http://www.w3.org/2000/svg"-->
-<!--                  fill="none"-->
-<!--                  viewBox="0 0 24 24"-->
-<!--                  stroke-width="1.5"-->
-<!--                  stroke="currentColor"-->
-<!--                  aria-hidden="true">-->
-<!--                  <path-->
-<!--                    stroke-linecap="round"-->
-<!--                    stroke-linejoin="round"-->
-<!--                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />-->
-<!--                </svg>-->
-<!--              </button>-->
-
-<!--              <button-->
-<!--                type="button"-->
-<!--                class="rounded-full bg-white p-2 text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">-->
-<!--                <span class="sr-only">Messages</span>-->
-<!--                <svg-->
-<!--                  xmlns="http://www.w3.org/2000/svg"-->
-<!--                  fill="none"-->
-<!--                  viewBox="0 0 24 24"-->
-<!--                  stroke-width="1.5"-->
-<!--                  stroke="currentColor"-->
-<!--                  class="w-6 h-6">-->
-<!--                  <path-->
-<!--                    stroke-linecap="round"-->
-<!--                    stroke-linejoin="round"-->
-<!--                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />-->
-<!--                </svg>-->
-<!--              </button>-->
 
               <!-- Profile dropdown -->
               <div
@@ -151,17 +95,19 @@
                     aria-expanded="false"
                     aria-haspopup="true">
                     <span class="sr-only">Open user menu</span>
-                    @if(isset(Auth::user()->image) && !is_null(Auth::user()->image))
-                        <img
-                            class="h-10 w-10 rounded-full object-cover"
-                            src="https://avatars.githubusercontent.com/u/831997"
-                            alt="Ahmed Shamim" />
+                    @if (Auth::user()->getFirstMediaUrl('profile_image') == null)
+                    <div class="flex-shrink-0">
+                        <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                            alt="">
+                    </div>
                     @else
-                        <img
-                        class="h-10 w-10 rounded-full object-cover"
-                        src="/img/avatar_male.jpg"
-                        alt="{{ Auth::user()->name }}" />
-                    @endif
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center">
+                                <img class="w-10 h-10 rounded-full border-2 border-gray-800"
+                                    src="{{ Auth::user()->getFirstMediaUrl('profile_image') }}" alt="">
+                            </div>
+                        </div>
+                @endif
                   </button>
                 </div>
 
