@@ -26,4 +26,8 @@ class post extends Model implements HasMedia
     public function comments() {
         return $this->hasMany(comment::class);
     }
+
+    public function likes() {
+        return $this->hasMany(like::class);
+    }
 }

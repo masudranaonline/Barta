@@ -138,16 +138,6 @@
           {{ Form::open(['url' => '/post/comment/'.$post->id, 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
             <div>
               <div class="flex items-start /space-x-3/">
-                <!-- User Avatar -->
-                <!-- <div class="flex-shrink-0">-->
-                <!--              <img-->
-                <!--                class="h-10 w-10 rounded-full object-cover"-->
-                <!--                src="https://avatars.githubusercontent.com/u/831997"-->
-                <!--                alt="Ahmed Shamim" />-->
-                <!--            </div> -->
-                <!-- /User Avatar -->
-
-                <!-- Auto Resizing Comment Box -->
                 <div class="text-gray-700 font-normal w-full">
                   <textarea
                     name="comment"

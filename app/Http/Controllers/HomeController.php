@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         //   $users = User::with(['media'])->find(Auth::user());
-         $posts = post::with(['author.media', 'media'])->latest()->get();
+          $posts = post::with(['author.media', 'media', 'likes'])->latest()->get();
 
         return view('home', compact('posts'));
     }
@@ -61,8 +61,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        // $users = User::with(['media'])->find(Auth::user());
-        // return view('layouts.header', compact('users'));
+
     }
 
     /**

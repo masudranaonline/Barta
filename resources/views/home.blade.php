@@ -190,12 +190,31 @@
                             href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
                         <span class="">•</span>
                         <span>450 views</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div>
 
+                    </div>
+                    <div class="flex items-center justify-between border-t-2 border-indigo-200">
+                        <div>
+                            {{ Form::open([
+                                'url' => '/post/like/'. $post->id,
+                                'method' => 'POST',
+                                'enctype' => 'multipart/form-data',
+                            ])}}
+
+                            @if($post->likes)
+
+                                @foreach ($post->likes as $like )
+                                    {{-- @if($like->user_id == Auth::user()->id) --}}
+                                         <input type="submit" value="🧡">
+                                    {{-- @endif --}}
+                                @endforeach
+                            @else
+                                <input type="submit" value="🤍">
+                            @endif
+                            <span>{{ $post->likes_count}}</span>
+
+                            {{ Form::close() }}
                         </div>
-                        <div class="flex gap-8 text-gray-600">
+                        <div class="flex gap-8 text-gray-600 pt-2">
                             <!-- Comment Button -->
                             <a href="/{{ $post->author->username }}/posts/{{ $post->uuid }}" type="button"
                                 class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
