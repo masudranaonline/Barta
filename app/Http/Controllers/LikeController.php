@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Like;
 use App\Models\post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LikeController extends Controller
 {
@@ -30,14 +31,42 @@ class LikeController extends Controller
      */
     public function store(Request $request, $postId)
     {
-        like::create([
-            'post_id' => $postId,
-            'user_id' => Auth::id(),
-        ]);
 
-        $post = post::find($postId);
-        $post->likes_count +=1;
-        $post->save();
+        $like = Like::where('post_id', $postId)->where('user_id', Auth::id())->first();
+
+        if($like) {
+            DB::beginTransaction();
+
+            try {
+                $like->forceDelete();
+
+                $post = post::find($postId);
+                $post->likes_count -=1;
+                $post->save();
+
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+            }
+        }else {
+            DB::beginTransaction();
+            try {
+                Like::create([
+                    'post_id' => $postId,
+                    'user_id' => Auth::id(),
+                ]);
+
+                $post = post::find($postId);
+                $post->likes_count +=1;
+                $post->save();
+
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+            }
+
+        }
+
 
         return back();
 

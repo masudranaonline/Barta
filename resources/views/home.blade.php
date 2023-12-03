@@ -184,7 +184,7 @@
                     </div>
 
                     <!-- Date Created & View Stat -->
-                    <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
+                    <div class="flex items-center justify-between gap-2 text-gray-500 text-xs my-2">
 
                         <a
                             href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
@@ -200,17 +200,13 @@
                                 'enctype' => 'multipart/form-data',
                             ])}}
 
-                            @if($post->likes)
+                            <div class="flex">
+                                <button type="submit" class="">
+                                    {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
+                                 </button>
 
-                                @foreach ($post->likes as $like )
-                                    {{-- @if($like->user_id == Auth::user()->id) --}}
-                                         <input type="submit" value="🧡">
-                                    {{-- @endif --}}
-                                @endforeach
-                            @else
-                                <input type="submit" value="🤍">
-                            @endif
-                            <span>{{ $post->likes_count}}</span>
+                                <span class="">{{ $post->likes_count}}</span>
+                            </div>
 
                             {{ Form::close() }}
                         </div>

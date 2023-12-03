@@ -2,7 +2,7 @@
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
       <div class="sm:flex sm:items-center sm:justify-between">
         <a
-          href="https://github.com/alnahian2003"
+          href="https://github.com/masudranaonline"
           class="flex items-center mb-4 sm:mb-0">
           <span
             class="self-center text-2xl font-semibold whitespace-nowrap text-white"
@@ -45,7 +45,7 @@
       <span class="block text-sm sm:text-center text-gray-200"
         >© 2023
         <a
-          href="https://github.com/alnahian2003"
+          href="https://github.com/masudranaonline"
           class="hover:underline"
           >Barta</a
         >. All Rights Reserved.</span

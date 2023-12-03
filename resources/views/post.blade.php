@@ -124,7 +124,7 @@
             </div>
 
             <!-- Date Created & View Stat -->
-            <div class="flex items-center gap-2 text-gray-500 text-xs my-2">
+            <div class="flex items-center justify-between gap-2 text-gray-500 text-xs my-2">
                 <span class="">{{ $post->created_at }}</span>
                 <span class="">•</span>
                 <span>{{ $post->comments_count }} comments</span>
@@ -132,7 +132,28 @@
                 <span>450 views</span>
             </div>
 
+
             <hr class="my-6" />
+
+            <div>
+                {{ Form::open([
+                    'url' => '/post/like/'. $post->id,
+                    'method' => 'POST',
+                    'enctype' => 'multipart/form-data',
+                ])}}
+
+                <div class="flex">
+                    <button type="submit" class="">
+                        {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
+                     </button>
+
+                    <span class="">{{ $post->likes_count}}</span>
+                </div>
+
+                {{ Form::close() }}
+            </div>
+
+            <hr class="my-3" />
 
           <!-- Barta Create Comment Form -->
           {{ Form::open(['url' => '/post/comment/'.$post->id, 'method' => 'post', 'enctype' => 'multipart/form-data']) }}

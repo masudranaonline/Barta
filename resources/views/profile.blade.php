@@ -291,8 +291,25 @@
             <!-- Barta Card Bottom -->
             <footer class="border-t border-gray-200 pt-2">
             <!-- Card Bottom Action Buttons -->
-            <div class="flex items-center justify-between">
-                <div class="flex gap-8 text-gray-600">
+            {{-- <div class="flex items-center justify-between"> --}}
+                <div class="flex items-center justify-between">
+                    <div>
+                        {{ Form::open([
+                            'url' => '/post/like/'. $post->id,
+                            'method' => 'POST',
+                            'enctype' => 'multipart/form-data',
+                        ])}}
+
+                        <div class="flex">
+                            <button type="submit" class="">
+                                {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
+                             </button>
+
+                            <span class="">{{ $post->likes_count}}</span>
+                        </div>
+
+                        {{ Form::close() }}
+                    </div>
                 <!-- Comment Button -->
                 <a
                     href="/{{ $post->author->username }}/posts/{{ $post->uuid }}"
@@ -316,7 +333,7 @@
                 </a>
                 <!-- /Comment Button -->
                 </div>
-            </div>
+            {{-- </div> --}}
             <!-- /Card Bottom Action Buttons -->
             </footer>
             <!-- /Barta Card Bottom -->
