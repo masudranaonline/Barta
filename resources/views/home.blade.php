@@ -187,7 +187,7 @@
                     <div class="flex items-center justify-between gap-2 text-gray-500 text-xs my-2">
 
                         <a
-                            href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ date('d M Y • h:i a', strtotime($post->created_at)) }}</a>
+                            href="/{{ $post->author->username }}/posts/{{ $post->uuid }}">{{ $post->created_at->diffForHumans() }}</a>
                         <span class="">•</span>
                         <span>450 views</span>
 
