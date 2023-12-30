@@ -20,10 +20,10 @@
                 <div class="flex-shrink-0">
                     <a href="/{{ Auth::user()->username }}/profile">
                         @if (Auth::user()->getFirstMediaUrl('profile_image') == null)
-                        <div class="flex-shrink-0">
-                            <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
-                                alt="">
-                        </div>
+                            <div class="flex-shrink-0">
+                                <img class="w-10 h-10 rounded-full border-2 border-gray-800" src="/img/avatar_male.jpg"
+                                    alt="">
+                            </div>
                         @else
                             <div class="flex-shrink-0">
                                 <div class="flex items-center justify-center">
@@ -31,8 +31,8 @@
                                         src="{{ Auth::user()->getFirstMediaUrl('profile_image') }}" alt="">
                                 </div>
                             </div>
-                    @endif
-                        </a>
+                        @endif
+                    </a>
                 </div>
                 <!-- /User Avatar -->
 
@@ -64,7 +64,7 @@
                             </svg>
                         </label>
                     </div>
-                    <span class="text-red-500 text-sm underline underline-offset-4">{{ Session::get('error')}}</span>
+                    <span class="text-red-500 text-sm underline underline-offset-4">{{ Session::get('error') }}</span>
                 </div>
 
                 <div>
@@ -96,16 +96,19 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <div class="flex-shrink-0">
-                                    @if (count($post->author->media) == 0 )
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full object-cover border-gray-800" src="/img/avatar_male.jpg" alt="">
-                                    </div>
+                                    @if (count($post->author->media) == 0)
+                                        <div class="flex-shrink-0">
+                                            <img class="h-10 w-10 rounded-full object-cover border-gray-800"
+                                                src="/img/avatar_male.jpg" alt="">
+                                        </div>
                                     @else
                                         <div class="flex-shrink-0">
-                                            @foreach($post->author->media as $media)
-                                            <div class="flex items-center justify-center">
-                                                <img class="h-10 w-10 rounded-full object-cover" src="/media/{{ $media->id }}/{{ $media->file_name }}" alt="">
-                                            </div>
+                                            @foreach ($post->author->media as $media)
+                                                <div class="flex items-center justify-center">
+                                                    <img class="h-10 w-10 rounded-full object-cover"
+                                                        src="/media/{{ $media->id }}/{{ $media->file_name }}"
+                                                        alt="">
+                                                </div>
                                             @endforeach
                                         </div>
                                     @endif
@@ -175,9 +178,10 @@
 
                     <!-- Content -->
                     <div class="py-4 text-gray-700 font-normal">
-                        @foreach($post->media as $media)
+                        @foreach ($post->media as $media)
                             <div class="flex items-center justify-center">
-                                <img class="mt-4 rounded-lg w-full" src="media/{{ $media->id }}/{{ $media->file_name }}" alt="">
+                                <img class="mt-4 rounded-lg w-full"
+                                    src="media/{{ $media->id }}/{{ $media->file_name }}" alt="">
                             </div>
                         @endforeach
                         <p>{{ $post->post }}</p>
@@ -195,17 +199,17 @@
                     <div class="flex items-center justify-between border-t-2 border-indigo-200">
                         <div>
                             {{ Form::open([
-                                'url' => '/post/like/'. $post->id,
+                                'url' => '/post/like/' . $post->id,
                                 'method' => 'POST',
                                 'enctype' => 'multipart/form-data',
-                            ])}}
+                            ]) }}
 
                             <div class="flex">
                                 <button type="submit" class="">
                                     {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
-                                 </button>
+                                </button>
 
-                                <span class="">{{ $post->likes_count}}</span>
+                                <span class="">{{ $post->likes_count }}</span>
                             </div>
 
                             {{ Form::close() }}
@@ -215,8 +219,8 @@
                             <a href="/{{ $post->author->username }}/posts/{{ $post->uuid }}" type="button"
                                 class="-m-2 flex gap-2 text-xs items-center rounded-full p-2 text-gray-600 hover:text-gray-800">
                                 <span class="sr-only">Comment</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="w-5 h-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
                                 </svg>
@@ -231,14 +235,10 @@
                     <!-- /Barta Card Bottom -->
                 </article>
             @endforeach
-            <!-- /Barta Card -->
-            {{-- <center>
-                <x-primary-button wire:click="loadMore">
-                    Loadmore
-                </x-primary-button>
-            </center> --}}
-            {{-- <button wire:click="loadMore">Load More</button> --}}
-        <button id="loadMore">Load More</button>
+            <div id="load-more-placeholder"></div>
+            <button onclick="loadMore()"
+                class="bg-blue-600 hover:bg-blue-500 rounded-md px-4 py-2 text-slate-200 hover:text-white">Load
+                More</button>
 
         </section>
         <!-- /Newsfeed -->
@@ -248,27 +248,36 @@
 
 
 <script>
-   const loadMore = () => {
-    currentPage.value++;
-    if (props.posts.current_page < props.posts.last_page) {
-        fetch('?page=' + currentPage.value)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(currentPage.value);
-                posts.push(...data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching more posts:', error);
-                // Handle error, e.g., hide loading indicator, show error message, etc.
-            });
-    }
-};
+    const currentBaseUrl = window.location.protocol + '//' + window.location.host;
 
+    let currentPage = 1;
+
+    const loadMore = async () => {
+        currentPage += 1;
+        const url = currentBaseUrl + '?page=' + currentPage;
+        console.log(url);
+
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const res = await response.json();
+            const data = res.data;
+
+            data.forEach(post => {
+                document.getElementById('load-more-placeholder').insertAdjacentHTML('beforeend', '<article class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6"><div class="py-4 text-gray-700 font-normal"><p>'+post.post+'</p></div></article>');
+            });
+        } catch (error) {
+            console.error('Error fetching more posts:', error);
+        }
+    };
 </script>
 
 <!-- Your load more button -->

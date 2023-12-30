@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Like;
 use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class post extends Model implements HasMedia
 {
@@ -28,6 +29,6 @@ class post extends Model implements HasMedia
     }
 
     public function likes() {
-        return $this->hasMany(like::class);
+        return $this->hasMany(Like::class);
     }
 }
