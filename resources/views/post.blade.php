@@ -125,7 +125,7 @@
 
             <!-- Date Created & View Stat -->
             <div class="flex items-center justify-between gap-2 text-gray-500 text-xs my-2">
-                <span class="">{{ $post->created_at }}</span>
+                <span class="">{{ $post->created_at->diffForHumans() }}</span>
                 <span class="">•</span>
                 <span>{{ $post->comments_count }} comments</span>
                 <span class="">•</span>
@@ -246,7 +246,7 @@
 
               <!-- Date Created -->
               <div class="flex items-center gap-2 text-gray-500 text-xs">
-                <span class="">{{ $comment->created_at }}</span>
+                <span class="">{{ $comment->created_at->diffForHumans() }}</span>
               </div>
             </div>
             @endforeach

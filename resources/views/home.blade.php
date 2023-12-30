@@ -232,7 +232,43 @@
                 </article>
             @endforeach
             <!-- /Barta Card -->
+            {{-- <center>
+                <x-primary-button wire:click="loadMore">
+                    Loadmore
+                </x-primary-button>
+            </center> --}}
+            {{-- <button wire:click="loadMore">Load More</button> --}}
+        <button id="loadMore">Load More</button>
+
         </section>
         <!-- /Newsfeed -->
     </main>
 @endsection
+
+
+
+<script>
+   const loadMore = () => {
+    currentPage.value++;
+    if (props.posts.current_page < props.posts.last_page) {
+        fetch('?page=' + currentPage.value)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(currentPage.value);
+                posts.push(...data.data);
+            })
+            .catch(error => {
+                console.error('Error fetching more posts:', error);
+                // Handle error, e.g., hide loading indicator, show error message, etc.
+            });
+    }
+};
+
+</script>
+
+<!-- Your load more button -->

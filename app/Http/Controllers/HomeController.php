@@ -7,16 +7,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\post;
 use App\Models\User;
+use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class HomeController extends Controller
 {
+    use WithPagination;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //   $users = User::with(['media'])->find(Auth::user());
-         $posts = post::with(['author.media', 'media', 'likes'])->latest()->get();
+         $posts = post::with(['author.media', 'media', 'likes'])->paginate(3);
+
+         if($request->ajax()) {
+            return response()->json($posts);
+         }
 
         return view('home', compact('posts'));
     }
