@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = post::with(['author.media', 'media', 'likes'])->paginate(1);
+        $posts = post::with(['author.media', 'media', 'likes'])->latest()->paginate(5);
 
         if ($request->ajax()) {
             return response()->json($posts);

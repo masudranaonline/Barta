@@ -235,10 +235,9 @@
                     <!-- /Barta Card Bottom -->
                 </article>
             @endforeach
-            <div id="load-more-placeholder"></div>
-            <button onclick="loadMore()"
-                class="bg-blue-600 hover:bg-blue-500 rounded-md px-4 py-2 text-slate-200 hover:text-white">Load
-                More</button>
+
+            {{-- Pagination --}}
+            {{ $posts->links() }}
 
         </section>
         <!-- /Newsfeed -->
@@ -247,7 +246,7 @@
 
 
 
-<script>
+{{-- <script>
     const currentBaseUrl = window.location.protocol + '//' + window.location.host;
 
     let currentPage = 1;
@@ -278,6 +277,6 @@
             console.error('Error fetching more posts:', error);
         }
     };
-</script>
+</script> --}}
 
 <!-- Your load more button -->
