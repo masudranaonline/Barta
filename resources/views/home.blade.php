@@ -238,5 +238,6 @@
         </section>
         <!-- /Newsfeed -->
     </main>
-    {{ $posts->links()}}
+    {{-- Load-more Feature --}}
+    {{ $posts->links() }}
 @endsection
