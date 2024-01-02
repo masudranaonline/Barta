@@ -13,12 +13,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-<<<<<<< HEAD
-        $posts = post::with(['author.media', 'media', 'likes'])->paginate(1);
-=======
+
+        // $posts = post::with(['author.media', 'media', 'likes'])->paginate(1);
         $posts = post::with(['author.media', 'media', 'likes'])->latest()->paginate(5);
 
->>>>>>> f8145a9db8bd55e0d347025e6bb3778b8640fee1
+
         if ($request->ajax()) {
             return response()->json($posts);
         }

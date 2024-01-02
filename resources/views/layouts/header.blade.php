@@ -25,6 +25,9 @@
       rel="stylesheet" />
       <!-- Include jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Alphine Js -->
+    <script defer src="https://unpkg.com/alpinejs@latest/dist/cdn.min.js"></script>
+
 
 
     <style>
@@ -78,11 +81,26 @@
 
             <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
               <!-- This Button Should Be Hidden on Mobile Devices -->
-          <button
-            type="button"
-            class="text-gray-900 hover:text-white border-2 border-gray-800 hover:bg-gray-900 focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hidden md:block">
-            Create Post
-          </button>
+
+              {{-- Notification --}}
+              <div x-data="{ showDropdown: false }" class="space-y-2">
+                <button @click="showDropdown = !showDropdown" class="underline relative">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 21">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3.464V1.1m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175C15 15.4 15 16 14.462 16H1.538C1 16 1 15.4 1 14.807c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 8 3.464ZM4.54 16a3.48 3.48 0 0 0 6.92 0H4.54Z"></path>
+                </svg>
+                </button>
+              
+                <div x-cloak x-show="showDropdown" class="p-4 bg-gray-300 absolute shadow-md" style="margin-top: 24px; margin-left:-50px;">
+                  <p class="underline font-bold text-xl pb-4 border-b-2 border-black">Notifications</p>
+                  <div class="py-4">
+                     <a href="#" class=" border-b-2 border-black py-3 px-2">This is comment notification</a><br>
+                  </div>
+                  <div class="py-4">
+                    <a href="#" class=" border-b-2 border-black py-3 px-2">This is comment notification</a><br>
+                 </div>
+                  
+                </div>
+              </div>
 
 
               <!-- Profile dropdown -->

@@ -29,16 +29,10 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/{username}/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
 
-
-
     Route::post('/{username}/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-
-
     Route::post('/profile/{username}/image', [UserController::class, 'store']);
-
     Route::get('/{username}/profile', [UserController::class, 'posts']);
     Route::get('/{username}/posts/{postId}', [UserController::class, 'post'])->name('user.post');
     Route::get('/{username}/about', [UserController::class, 'about']);
@@ -48,13 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/{username}/followers', [UserController::class, 'followers']);
     Route::get('/{username}/groups', [UserController::class, 'groups']);
 
-
-
     Route::get('/', [HomeController::class, 'index']);
-
     Route::post('/search/{searchTest?}', [HomeController::class, 'search']);
-
-
     // post relationship
     Route::post('/post/{username}/new', [PostController::class, 'store']);
 
