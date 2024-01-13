@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -47,6 +48,8 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
+            // $notifications = Notification::where('notifiable_id', Auth::user()->id)->get();
+            // session()->put('notifications', $notifications);
             $request->session()->regenerate();
             return redirect()->route('home');
         }

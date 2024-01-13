@@ -90,14 +90,39 @@
                 </svg>
                 </button>
               
-                <div x-cloak x-show="showDropdown" class="p-4 bg-gray-300 absolute shadow-md" style="margin-top: 24px; margin-left:-50px;">
-                  <p class="underline font-bold text-xl pb-4 border-b-2 border-black">Notifications</p>
-                  <div class="py-4">
+                <div x-cloak x-show="showDropdown" class="p-4 bg-gray-300 absolute shadow-md" style="margin-top: 24px; margin-left:-100px;">
+                  <p class="underline font-bold text-xl pb-4 border-b-2 border-black text-center">Notifications</p>
+                   {{-- @if(Auth()->user()->notifications) 
+
+                     @foreach (Auth()->user()->notifications as $notification )
+                      <div class="py-4 border-b-2 border-black">
+                        <a href="#" class=" py-3 px-2 text-sm"><b class=" text-sm">{{ $notification->data['name']}} :</b> Comment on your post!</a><br>
+                      </div>
+                     @endforeach
+                   @endif --}}
+                   
+                  @if(session()->get('noti'))
+                    @foreach(session('noti') as $not)
+                        <div class="py-4 border-b-2 border-black">
+                            <a href="#" class=" py-3 px-2 text-sm"><b class=" text-sm">{{ $not['author']->name }} : </b> Comment on your post</a><br>
+                        </div>
+                    @endforeach
+                @endif
+
+                  {{-- @if (session('notifications'))
+                      @foreach (session('notifications') as $notification)
+                          <div class="py-4">
+                              <a href="#" class="border-b-2 border-black py-3 px-2">{{ $notification['data']}}</a><br>
+                          </div>
+                      @endforeach
+                  @endif --}}
+
+                  {{-- <div class="py-4">
                      <a href="#" class=" border-b-2 border-black py-3 px-2">This is comment notification</a><br>
                   </div>
                   <div class="py-4">
-                    <a href="#" class=" border-b-2 border-black py-3 px-2">This is comment notification</a><br>
-                 </div>
+                    <a href="#" class=" border-b-2 border-black py-3 px-2">{{ session('notifications.data') }}</a><br>
+                 </div> --}}
                   
                 </div>
               </div>

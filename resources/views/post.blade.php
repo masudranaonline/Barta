@@ -160,6 +160,7 @@
             <div>
               <div class="flex items-start /space-x-3/">
                 <div class="text-gray-700 font-normal w-full">
+                  <input type="hidden" value="{{ $post->author->email}}" name="author_email">
                   <textarea
                     name="comment"
                     placeholder="Write a comment..."

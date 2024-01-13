@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\post;
 use App\Models\User;
+use App\Models\comment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
+use App\Notifications\UserLikesNotification;
+
 
 class HomeController extends Controller
 {
@@ -16,13 +21,39 @@ class HomeController extends Controller
 
         // $posts = post::with(['author.media', 'media', 'likes'])->paginate(1);
         $posts = post::with(['author.media', 'media', 'likes'])->latest()->paginate(5);
+        
+         $notifications = Notification::where('notifiable_id', Auth::user()->id)->get();
+         $noti= [];
+         foreach ($notifications as $notification) {
+            $khulna = json_decode($notification->data);
 
+            $user = User::where('id', $khulna->user_id)->first();
+            $data = [
+                'notifications' => $notification,
+                'author' => $user,
+            ];
+            array_push($noti, $data);
+            
+         }
+        //  return $noti;
+        session()->put('noti', $noti);
+        
 
         if ($request->ajax()) {
             return response()->json($posts);
         }
 
+        // 
+
         return view('home', compact('posts'));
+    }
+
+    public function notify() {
+        // if(auth()->user()) {
+        //     $user = Auth::user();
+
+        //     auth()->user()->notify(new UserLikesNotification($user));
+        // }
     }
     /**
      * Show the form for creating a new resource.

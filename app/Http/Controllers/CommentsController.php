@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\comment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\post;
+use App\Models\User;
+use App\Notifications\CommentInPost;
+
 
 class CommentsController extends Controller
 {
@@ -31,11 +34,21 @@ class CommentsController extends Controller
      */
     public function store(Request $request, $postId)
     {
-        comment::create([
+        $comment = comment::create([
             'comment' => $request->comment,
             'user_id' => Auth::id(),
             'post_id' => $postId,
         ]);
+
+        $user = User::where('email', $request->author_email)->first();
+        $user->notify(new \App\Notifications\CommentInPost($comment));
+
+        // if(auth()->user()) {
+        //     $user = Auth::user();
+        //     $user->notify(new CommentInPost($user));
+
+        //     // auth()->user()->notify(new UserLikesNotification($user));
+        // }
 
         $post = post::find($postId);
         $post->comments_count += 1;

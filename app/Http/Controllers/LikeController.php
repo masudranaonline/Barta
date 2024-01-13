@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Like;
 use App\Models\post;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\UserLikesNotification;
 
 class LikeController extends Controller
 {
@@ -43,6 +45,7 @@ class LikeController extends Controller
                 $post = post::find($postId);
                 $post->likes_count -=1;
                 $post->save();
+                
 
                 DB::commit();
             } catch (\Throwable $th) {
@@ -51,22 +54,32 @@ class LikeController extends Controller
         }else {
             DB::beginTransaction();
             try {
-                Like::create([
+                $like = Like::create([
                     'post_id' => $postId,
                     'user_id' => Auth::id(),
                 ]);
+
+                
+                $user = User::where('email', $request->author_email)->first();
+                $user->notify(new \App\Notifications\UserLikesNotification($user));
+                
 
                 $post = post::find($postId);
                 $post->likes_count +=1;
                 $post->save();
 
+
                 DB::commit();
             } catch (\Throwable $th) {
                 DB::rollBack();
             }
-
         }
 
+         
+
+            // $user = User::where('email', $request->author_email)->first();
+            // $user->notify(new \App\Notifications\CommentInPost($comment));
+    
 
         return back();
 

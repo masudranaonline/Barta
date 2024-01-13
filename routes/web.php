@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/{username}/groups', [UserController::class, 'groups']);
 
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/notify', [HomeController::class, 'notify']);
     Route::post('/search/{searchTest?}', [HomeController::class, 'search']);
     // post relationship
     Route::post('/post/{username}/new', [PostController::class, 'store']);
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     //comments
 
     Route::post('/post/comment/{postId}', [CommentsController::class, 'store']);
+    Route::post('/post/comment/{id}', [CommentsController::class, 'show'])->name('comment.show');
     Route::post('/post/like/{postId}', [LikeController::class, 'store']);
 
 
