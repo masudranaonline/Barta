@@ -23,8 +23,7 @@ class ProfileController extends Controller
     public function edit(Request $request, string $username)
     {
          $user = User::with('media')->where('username', $username)->first();
-
-        return view('profile_edit', compact('user'));
+         return view('profile_edit', compact('user'));
     }
 
     /**
@@ -35,6 +34,9 @@ class ProfileController extends Controller
      {
         return $user = User::with('media')->where('id', $id)->first();
      }
+      /**
+     * Update the user's profile information.
+     */
     public function update(ProfileUpdateRequest $request, string $id): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -57,10 +59,6 @@ class ProfileController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-
-
-        // $request->user()->save();
-
     }
 
     /**

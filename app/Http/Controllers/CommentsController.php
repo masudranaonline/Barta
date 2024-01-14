@@ -43,18 +43,10 @@ class CommentsController extends Controller
         $user = User::where('email', $request->author_email)->first();
         $user->notify(new \App\Notifications\CommentInPost($comment));
 
-        // if(auth()->user()) {
-        //     $user = Auth::user();
-        //     $user->notify(new CommentInPost($user));
-
-        //     // auth()->user()->notify(new UserLikesNotification($user));
-        // }
-
         $post = post::find($postId);
         $post->comments_count += 1;
         $post->save();
-
-
+        
         return back();
     }
 
