@@ -52,6 +52,7 @@ class CommentInPost extends Notification implements ShouldQueue
         return [
             'post_id' => $this->comment['post_id'],
             'user_id' => $this->comment['user_id'],
+            'message' => 'Comment on your post',
             'data' => $this->comment['comment'],
             
         ];

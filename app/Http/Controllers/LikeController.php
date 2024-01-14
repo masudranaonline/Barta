@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\UserLikesNotification;
+use Exception;
+
 
 class LikeController extends Controller
 {
@@ -54,14 +56,14 @@ class LikeController extends Controller
         }else {
             DB::beginTransaction();
             try {
-                $like = Like::create([
+                $likeStore = Like::create([
                     'post_id' => $postId,
                     'user_id' => Auth::id(),
                 ]);
 
-                
+                // return User::all();
                 $user = User::where('email', $request->author_email)->first();
-                $user->notify(new \App\Notifications\UserLikesNotification($user));
+                $user->notify(new \App\Notifications\UserLikesNotification($likeStore));
                 
 
                 $post = post::find($postId);
@@ -71,6 +73,7 @@ class LikeController extends Controller
 
                 DB::commit();
             } catch (\Throwable $th) {
+                throw $th;
                 DB::rollBack();
             }
         }

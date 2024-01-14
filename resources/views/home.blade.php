@@ -206,6 +206,7 @@
 
                             <div class="flex">
                                 <button type="submit" class="">
+                                    <input type="hidden" value="{{ $post->author->email}}" name="author_email">
                                     {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
                                 </button>
 

@@ -25,25 +25,24 @@ class HomeController extends Controller
          $notifications = Notification::where('notifiable_id', Auth::user()->id)->get();
          $noti= [];
          foreach ($notifications as $notification) {
-            $khulna = json_decode($notification->data);
-
-            $user = User::where('id', $khulna->user_id)->first();
+            $decodeData = json_decode($notification->data);
+            // return $decodeData;
+            $user = User::where('id', $decodeData->user_id)->first();
             $data = [
                 'notifications' => $notification,
                 'author' => $user,
+                'mess' => $decodeData,
             ];
+            // return $data;
             array_push($noti, $data);
             
          }
         //  return $noti;
-        session()->put('noti', $noti);
+        session()->put('notifications', $noti);
         
-
         if ($request->ajax()) {
             return response()->json($posts);
         }
-
-        // 
 
         return view('home', compact('posts'));
     }

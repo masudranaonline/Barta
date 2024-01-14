@@ -101,10 +101,10 @@
                      @endforeach
                    @endif --}}
                    
-                  @if(session()->get('noti'))
-                    @foreach(session('noti') as $not)
+                  @if(session()->get('notifications'))
+                    @foreach(session('notifications') as $notification)
                         <div class="py-4 border-b-2 border-black">
-                            <a href="#" class=" py-3 px-2 text-sm"><b class=" text-sm">{{ $not['author']->name }} : </b> Comment on your post</a><br>
+                            <a href="#" class=" py-3 px-2 text-sm"><b class=" text-sm">{{ $notification['author']->name }} : </b> {{ $notification['mess']->message }} </a><br>
                         </div>
                     @endforeach
                 @endif

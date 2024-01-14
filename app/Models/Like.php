@@ -15,4 +15,8 @@ class Like extends Model
         'post_id',
         'user_id',
     ];
+
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

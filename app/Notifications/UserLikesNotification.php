@@ -11,14 +11,14 @@ use Illuminate\Notifications\Notification;
 class UserLikesNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-    public $user;
+    public $likeStore;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct($likeStore)
     {
-        $this->user = $user;
+        $this->likeStore = $likeStore;
     }
 
     /**
@@ -37,7 +37,7 @@ class UserLikesNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
+                    ->line('Like on your post!.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
@@ -50,9 +50,10 @@ class UserLikesNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'user_id' => $this->user['id'],
-            'name' => $this->user['name'],
-            // 'email' => $this->user['email'],
+            'post_id' => $this->likeStore['post_id'],
+            'user_id' => $this->likeStore['user_id'],
+            'message' => 'Like on your post!',
+            // 'email' => $this->likeStore['email'],
         ];
     }
 }
