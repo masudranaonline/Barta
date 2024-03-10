@@ -206,7 +206,7 @@
 
                             <div class="flex">
                                 <button type="submit" class="">
-                                    <input type="hidden" value="{{ $post->author->email}}" name="author_email">
+                                    <input type="hidden" value="{{ $post->author->email }}" name="author_email">
                                     {!! App\Helpers\PostHelper::getLikeIcon($post->likes, $post->id, Auth::id()) !!}
                                 </button>
 
@@ -275,7 +275,9 @@
             const data = res.data;
 
             data.forEach(post => {
-                document.getElementById('load-more-placeholder').insertAdjacentHTML('beforeend', '<article class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6"><div class="py-4 text-gray-700 font-normal"><p>'+post.post+'</p></div></article>');
+                document.getElementById('load-more-placeholder').insertAdjacentHTML('beforeend',
+                    '<article class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6"><div class="py-4 text-gray-700 font-normal"><p>' +
+                    post.post + '</p></div></article>');
             });
         } catch (error) {
             console.error('Error fetching more posts:', error);
